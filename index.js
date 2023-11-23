@@ -5,7 +5,7 @@ const { findRecordById } = require("./finder");
 const app = express();
 const port = 3000;
 
-const filePath = "./data.json";
+const filePath = "./testdata.json";
 
 app.use(bodyParser.json());
 

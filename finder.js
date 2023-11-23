@@ -9,7 +9,7 @@ async function findRecordById(filePath, id) {
     const jsonData = JSON.parse(data);
 
     // Find the record with the specified id
-    const record = jsonData.data.find((item) => item.id === id);
+    const record = jsonData.data.find((item) => item.id === id) || null;
 
     return record;
   } catch (err) {
