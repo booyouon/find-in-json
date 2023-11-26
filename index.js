@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const { findRecordById } = require("./finder");
+const { findRecordById, filterKeysWithAllowList } = require("./finder");
 
 const app = express();
 const port = 3000;
@@ -9,7 +9,8 @@ const filePath = "./testdata.json";
 
 app.use(bodyParser.json());
 
-app.get("/getRecord/:id", async (req, res) => {
+// Used to search through a json file and return the record with the specified id
+app.post("/getRecord/:id", async (req, res) => {
   try {
     // Find the record with the specified id using the external service
     const record = await findRecordById(filePath, req.params.id);
@@ -24,13 +25,7 @@ app.get("/getRecord/:id", async (req, res) => {
 
     // If allowedKeys is provided, filter the record based on it
     if (allowedKeys && Array.isArray(allowedKeys)) {
-      const filteredRecord = Object.keys(record)
-        .filter((key) => allowedKeys.includes(key))
-        .reduce((obj, key) => {
-          obj[key] = record[key];
-          return obj;
-        }, {});
-
+      const filteredRecord = filterKeysWithAllowList(record, allowedKeys);
       return res.json({ record: filteredRecord });
     }
 

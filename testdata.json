@@ -2,56 +2,15 @@
   "data": [
     {
       "id": "306",
-      "contact_id": "",
       "status": "Complete",
       "is_test_data": "0",
-      "date_submitted": "2023-11-15 16:15:17 EST",
-      "session_id": "1700076945_65551d910618a4.17034472",
+      "date_submitted": "2023-11-15 12:00:00 EST",
       "language": "English",
-      "date_started": "2023-11-15 14:35:56 EST",
-      "link_id": "16970732",
-      "url_variables": {
-        "_privatedomain": {
-          "key": "_privatedomain",
-          "value": "t",
-          "type": "url"
-        },
-        "snc": {
-          "key": "snc",
-          "value": "1700076945_65551d910618a4.17034472",
-          "type": "url"
-        }
-      },
-      "ip_address": "174.231.65.175",
-      "referer": "https://surveys.vitalresearch.com/s3/WY2023-2024NCI-AD",
-      "user_agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-      "response_time": 6024,
-      "data_quality": {
-        "opentext": {
-          "gibberish": {
-            "813": 813,
-            "817": 817,
-            "819": 819,
-            "928": 928
-          }
-        },
-        "checkbox": {
-          "one": {
-            "7": 7,
-            "18": 18,
-            "148": 148,
-            "302": 302,
-            "304": 304
-          }
-        }
-      },
-      "longitude": "-87.652198791504",
-      "latitude": "41.809501647949",
+      "date_started": "2023-11-15 12:00:00 EST",
       "country": "United States",
       "city": "Chicago",
       "region": "IL",
       "postal": "60609",
-      "dma": "602",
       "survey_data": {
         "3": {
           "id": 3,

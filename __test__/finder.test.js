@@ -1,4 +1,4 @@
-const { findRecordById } = require("../finder");
+const { findRecordById, filterKeysWithAllowList } = require("../finder");
 
 describe("findRecordById", () => {
   const filePath = "./testdata.json";
@@ -17,5 +17,15 @@ describe("findRecordById", () => {
 
     // Assert that the record is not found (null)
     expect(record).toBeNull();
+  });
+});
+
+describe("filterKeysWithAllowList", () => {
+  test("filters keys based on allow list", () => {
+    const record = { id: 1, name: "Record 1", age: 25 };
+    const allowedKeys = ["id", "name"];
+    const filteredRecord = filterKeysWithAllowList(record, allowedKeys);
+
+    expect(filteredRecord).toEqual({ id: 1, name: "Record 1" });
   });
 });
