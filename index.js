@@ -1,25 +1,33 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+
+const multer = require("multer");
+const fileFolder = "uploads/";
+const upload = multer({ dest: fileFolder });
+
 const {
   readFile,
   findRecordById,
   filterKeysWithAllowList,
+  findAndDeleteByFilePath,
 } = require("./finder");
 
 const app = express();
 const port = 3000;
 
-const filePath = "./testdata2.json";
-
 app.use(bodyParser.json());
 
 // Used to search through a json file and return the record with the specified id
-app.post("/find", async (req, res) => {
+app.post("/find", upload.single("uploaded_file"), async (req, res) => {
   try {
     const body = req.body;
+    // Check if a file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
     // Find the record with the specified id using the external service
     const record = await findRecordById(
-      filePath,
+      fileFolder + req.file.filename,
       body.id,
       body.idField,
       body.arrayField
@@ -44,14 +52,23 @@ app.post("/find", async (req, res) => {
   } catch (err) {
     console.error("Error:", err);
     res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    // Delete the uploaded file
+    if (req.file) {
+      findAndDeleteByFilePath(fileFolder + req.file.filename);
+    }
   }
 });
 
 // Used to search through a json file and return the record with the specified id
-app.post("/filter", async (req, res) => {
+app.post("/filter", upload.single("uploaded_file"), async (req, res) => {
   try {
     const body = req.body;
-    const record = await readFile(filePath);
+    // Check if a file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ message: "No file uploaded" });
+    }
+    const record = await readFile(fileFolder + req.file.filename);
 
     // Check if the record is empty
     if (!record) {
@@ -71,12 +88,12 @@ app.post("/filter", async (req, res) => {
   } catch (err) {
     console.error("Error:", err);
     res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    // Delete the uploaded file
+    if (req.file) {
+      findAndDeleteByFilePath(fileFolder + req.file.filename);
+    }
   }
-});
-
-app.post("/read", async (req, res) => {
-  console.log(req.body);
-  res.json({ message: "Hello World!" });
 });
 
 app.listen(port, () => {

@@ -35,7 +35,6 @@ function filterKeysWithAllowList(record, allowedKeys) {
   const filteredRecord = Object.keys(record)
     .filter((key) => allowedKeys.includes(key))
     .reduce((obj, key) => {
-      console.log(record[key]);
       obj[key] = record[key];
       return obj;
     }, {});
@@ -43,8 +42,18 @@ function filterKeysWithAllowList(record, allowedKeys) {
   return filteredRecord;
 }
 
+function findAndDeleteByFilePath(filePath) {
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+  });
+}
+
 module.exports = {
   readFile,
   findRecordById,
   filterKeysWithAllowList,
+  findAndDeleteByFilePath,
 };
